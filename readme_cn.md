@@ -1,10 +1,11 @@
 # Awesome eBPF [![Awesome](https://awesome.re/badge.svg)](https://github.com/sindresorhus/awesome)
 
-> A curated list of awesome projects related to eBPF.
+>  一个精心维护的 eBPF 相关优秀项目清单。
 
-BPF, as in _Berkeley Packet Filter_, is an in-kernel virtual machine running programs passed from user space. Initially implemented on BSD, then Linux, the (now legacy) "classic BPF" or cBPF machine would be used with tools like tcpdump for filtering packets in the kernel to avoid useless copies to user space. More recently, the BPF infrastructure in Linux has been completely reworked and gave life to the "extended BPF", or eBPF, which gained new features (safety and termination checks, JIT-compiling for programs, persistent maps, a standard library, hardware offload support, etc.) and is now used for many tasks. Processing packets at a very low level (XDP), tracing and monitoring events on the system, or enforcing access control over cgroups are but a few examples to which eBPF brings performance, programmability and flexibility.
+BPF（Berkeley Packet Filter，伯克利数据包过滤器）是一个在内核中运行的虚拟机，用于执行从用户空间传递过来的程序。最初在 BSD 系统上实现，后来移植到 Linux 系统。
+早期的"经典 BPF"（cBPF）虚拟机主要用于配合 tcpdump 等工具在内核中进行数据包过滤，以避免不必要的数据复制到用户空间。近年来，Linux 中的 BPF 基础设施进行了全面重构，诞生了"扩展 BPF"（eBPF），它增加了许多新特性（如安全性和终止检查、程序的即时编译、持久化映射、标准库、硬件卸载支持等），现在已被广泛应用于多种场景。无论是在非常底层处理数据包（XDP）、对系统事件进行追踪和监控，还是在 cgroups 上实施访问控制，eBPF 都带来了卓越的性能、强大的可编程性和灵活的扩展性。
 
-Recently, [Cilium](https://cilium.io) launched a great website about eBPF called [ebpf.io](https://ebpf.io/). It serves a similar purpose to this list, with [an introduction to eBPF](https://ebpf.io/what-is-ebpf) and links to [related projects](https://ebpf.io/projects).
+最近, [Cilium](https://cilium.io) 推出了一个关于 eBPF 的优秀网站 [ebpf.io](https://ebpf.io/). 该网站与本清单有同样的初衷, 提供了 [eBPF的介绍](https://ebpf.io/what-is-ebpf) 和 [相关项目](https://ebpf.io/projects).
 
 > Note: eBPF is an exciting piece of technology, and its ecosystem is constantly evolving. We'd love help from _you_ to keep this awesome list up to date, and improve its signal-to-noise ratio in anyway we can. Please feel free to leave [any feedback](https://github.com/zoidbergwill/awesome-ebpf/issues).
 
@@ -12,42 +13,42 @@ Recently, [Cilium](https://cilium.io) launched a great website about eBPF called
 
 ## Contents
 
-- [Reference Documentation](#reference-documentation)
-- [Articles and Presentations](#articles-and-presentations)
-- [Tutorials](#tutorials)
-- [Examples](#examples)
-- [eBPF Workflow: Tools and Utilities](#ebpf-workflow-tools-and-utilities)
-- [Projects Related to eBPF](#projects-related-to-ebpf)
-- [eBPF in Security](#ebpf-in-security)
-- [The Code](#the-code)
-- [Development and Community](#development-and-community)
-- [Other Lists of Resources on eBPF](#other-lists-of-resources-on-ebpf)
-- [Acknowledgement](#acknowledgement)
+- [参考文档](#reference-documentation)
+- [文章和演示](#articles-and-presentations)
+- [教程](#tutorials)
+- [示例](#examples)
+- [eBPF 工作流：工具和实用程序](#ebpf-workflow-tools-and-utilities)
+- [eBPF 相关项目](#projects-related-to-ebpf)
+- [eBPF 在安全领域的应用](#ebpf-in-security)
+- [源代码](#the-code)
+- [开发和社区](#development-and-community)
+- [其他eBPF资源列表](#other-lists-of-resources-on-ebpf)
+- [致谢](#acknowledgement)
 
 ## Reference Documentation
 
 ### eBPF Essentials
 
-- [ebpf.io](https://ebpf.io/) - A gateway to discover all the basics of eBPF, including a listing of the main related projects and of community resources.
-- [Cilium's BPF and XDP Reference Guide](http://docs.cilium.io/en/latest/bpf/) - In-depth documentation about most features and aspects of eBPF.
+- [ebpf.io](https://ebpf.io/) - 一个探索 eBPF 基础知识的入门网站，包含主要相关项目列表和社区资源。
+- [Cilium's BPF and XDP Reference Guide](http://docs.cilium.io/en/latest/bpf/) - 一份全面深入的文档，详细介绍了 eBPF 的主要特性和各个方面。
 
 ### Kernel Documentation
 
-- [BPF Documentation](https://www.kernel.org/doc/html/latest/bpf/index.html) - Index for BPF-related documentation coming with the Linux kernel.
-- [linux/Documentation/networking/filter.rst](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/networking/filter.rst) - eBPF specification (somewhat outdated; information should still be valid, but not exhaustive).
-- [BPF Design Q&A](https://www.kernel.org/doc/html/latest/bpf/bpf_design_QA.html) - Frequently Asked Questions on the decisions behind the BPF infrastructure.
-- [HOWTO interact with BPF subsystem](https://www.kernel.org/doc/html/latest/bpf/bpf_devel_QA.html) - Frequently Asked Questions about contributing to eBPF development.
+- [BPF Documentation](https://www.kernel.org/doc/html/latest/bpf/index.html) - Linux 内核附带的 BPF 相关文档索引。
+- [linux/Documentation/networking/filter.rst](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/networking/filter.rst) -  eBPF 规范说明（有些过时；信息仍然有效，但不够完整）。
+- [BPF Design Q&A](https://www.kernel.org/doc/html/latest/bpf/bpf_design_QA.html) - 关于 BPF 基础架构设计决策的常见问题解答。
+- [如何与ebpf子系统进行交互](https://www.kernel.org/doc/html/latest/bpf/bpf_devel_QA.html) - 关于参与 eBPF 开发的常见问题解答。
 
 ### Manual Pages
 
-- [`bpf(2)`](http://man7.org/linux/man-pages/man2/bpf.2.html) - Manual page about the `bpf()` system call, used to manage BPF programs and maps from userspace.
-- [`tc-bpf(8)`](http://man7.org/linux/man-pages/man8/tc-bpf.8.html) - Manual page about using BPF with tc, including example commands and samples of code.
-- [`bpf-helpers(7)` man page](http://man7.org/linux/man-pages/man7/bpf-helpers.7.html) - Description of the in-kernel helper functions forming the BPF standard library.
+- [`bpf(2)`](http://man7.org/linux/man-pages/man2/bpf.2.html) - 关于 bpf() 系统调用的手册页，介绍如何从用户空间管理 BPF 程序和映射。
+- [`tc-bpf(8)`](http://man7.org/linux/man-pages/man8/tc-bpf.8.html) - 关于在 tc 中使用 BPF 的手册页，包含命令示例和代码样例。
+- [`bpf-helpers(7)` 用户手册](http://man7.org/linux/man-pages/man7/bpf-helpers.7.html) - 描述了构成 BPF 标准库的内核辅助函数。
 
 ### Other
 
-- [IO Visor's Unofficial eBPF spec](https://github.com/iovisor/bpf-docs/blob/master/eBPF.md) - Summary of eBPF syntax and operation codes.
-- [Jesper Dangaard Brouer's documentation](https://prototype-kernel.readthedocs.io/en/latest/bpf/index.html) - Work in progress, contributions welcome.
+- [IO Visor's Unofficial eBPF spec](https://github.com/iovisor/bpf-docs/blob/master/eBPF.md) - eBPF 语法和操作码的概述。
+- [Jesper Dangaard Brouer's documentation](https://prototype-kernel.readthedocs.io/en/latest/bpf/index.html) - 正在进行中的文档，欢迎贡献。
 - Emails from David Miller to the [xdp-newbies](http://vger.kernel.org/vger-lists.html#xdp-newbies) mailing list:
 
   - [bpf.h and you...](https://www.spinics.net/lists/xdp-newbies/msg00179.html)
@@ -79,19 +80,21 @@ If you are new to eBPF, you may want to try the links described as "introduction
 - [Linux BPF Superpowers](http://www.slideshare.net/brendangregg/linux-bpf-superpowers) - An introduction mostly covering the tracing aspects, first part with flame graphs.
 - [IO Visor](https://www.socallinuxexpo.org/sites/default/files/presentations/Room%20211%20-%20IOVisor%20-%20SCaLE%2014x.pdf) - Also introduces [IO Visor project](https://www.iovisor.org/).
 - [BPF -- in-kernel virtual machine](http://vger.kernel.org/netconf2015Starovoitov-bpf_collabsummit_2015feb20.pdf) - Presentation by the author of eBPF.
-- [Extending extended BPF](https://lwn.net/Articles/603983/) - A blog post from 2014 on the development of BPF and demonstrating what can be done with it, using an example of stateful socket filtering by attaching an eBPF program to a socket.
-- Greg Marsden made some documentation about eBPF:
-  - [A Tour of Program Types](https://blogs.oracle.com/linux/notes-on-bpf-1) - A description of all existing hooks for BPF program types, and of their interest.
-  - [BPF helper functions](https://blogs.oracle.com/linux/notes-on-bpf-2) - A review of the kernel functions that can be called from within eBPF programs.
-  - [Communicating with Userspace](https://blogs.oracle.com/linux/notes-on-bpf-3) - How BPF communicates with userspace - BPF maps, perf events, bpf_trace_printk.
-  - [Building BPF Programs](https://blogs.oracle.com/linux/notes-on-bpf-4) - Setting up your environment to build BPF programs.
-  - [The BPF Bytecode and the BPF Verifier](https://blogs.oracle.com/linux/notes-on-bpf-5) - How does BPF ensure that programs are safe?
-  - [Using BPF to do Packet Transformation](https://blogs.oracle.com/linux/notes-on-bpf-6) - One eBPF usage about packet transformation.
-- [Linux Kernel Observability through eBPF](https://sematext.com/blog/linux-kernel-observability-ebpf/) - A blog post covering the basics of eBPF as well as code samples in Go on how to build and load a minimal eBPF program into the kernel.
-- [eBPF - From a Programmer's Perspective](https://www.researchgate.net/publication/349173667_eBPF_-_From_a_Programmer's_Perspective) - A short paper describing the fundamentals of eBPF and how to get started with writing eBPF programs.
-- [Cloudflare's blog posts on eBPF](https://blog.cloudflare.com/tag/ebpf/) - Different blog posts about networking use cases and low-level aspects of eBPF.
-- [Linux Extended BPF (eBPF) Tracing Tools](https://www.brendangregg.com/ebpf.html) - An in-depth collection of information around examples of performance analysis tools using eBPF. Contains also a section at the end of the page about other resources.
-- [Beginner's guide to eBPF](https://github.com/lizrice/ebpf-beginners) - A set of live-coding talks and the accompanying code examples, introducing eBPF programming using a variety of libraries and program types.
+- [Extending extended BPF](https://lwn.net/Articles/603983/) - 一篇 2014 年的博文，介绍了 BPF 的发展历程，并通过将 eBPF 程序附加到套接字来实现有状态套接字过滤的示例，展示了 BPF 的功能。
+- Greg Marsden 撰写的 eBPF 相关文档：
+  - [A Tour of Program Types](https://blogs.oracle.com/linux/notes-on-bpf-1) - 描述了所有现有的 BPF 程序类型及其用途。
+  - [BPF helper functions](https://blogs.oracle.com/linux/notes-on-bpf-2) 
+  - 介绍了可以在 eBPF 程序中调用的内核函数。
+  - [Communicating with Userspace](https://blogs.oracle.com/linux/notes-on-bpf-3) -  讲解 BPF 如何与用户空间通信 - BPF maps、perf events 和 bpf_trace_printk。
+  - [Building BPF Programs](https://blogs.oracle.com/linux/notes-on-bpf-4) 
+  - 如何搭建 BPF 程序的开发环境。
+  - [The BPF Bytecode and the BPF Verifier](https://blogs.oracle.com/linux/notes-on-bpf-5) - BPF 如何确保程序的安全性。
+  - [Using BPF to do Packet Transformation](https://blogs.oracle.com/linux/notes-on-bpf-6) -关于使用 eBPF 进行数据包转换的用例。
+- [Linux Kernel Observability through eBPF](https://sematext.com/blog/linux-kernel-observability-ebpf/) - 一篇博文，介绍了 eBPF 的基础知识，并提供了用 Go 语言构建和加载最小 eBPF 程序到内核的代码示例。
+- [eBPF - From a Programmer's Perspective](https://www.researchgate.net/publication/349173667_eBPF_-_From_a_Programmer's_Perspective) - 一篇简短的论文，描述了 eBPF 的基本原理以及如何开始编写 eBPF 程序。
+- [Cloudflare's blog posts on eBPF](https://blog.cloudflare.com/tag/ebpf/) - 多篇关于 eBPF 网络应用场景和底层实现的博文。
+- [Linux Extended BPF (eBPF) Tracing Tools](https://www.brendangregg.com/ebpf.html) - 一个深入的信息集合，包含了使用 eBPF 的性能分析工具示例。页面末尾还包含其他资源的相关章节。
+- [Beginner's guide to eBPF](https://github.com/lizrice/ebpf-beginners) - 一系列现场编程演讲和配套代码示例，使用各种库和程序类型介绍 eBPF 编程。
 
 ### BPF Internals
 
